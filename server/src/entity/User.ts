@@ -5,8 +5,10 @@ import {
   BeforeInsert,
   BaseEntity
 } from "typeorm";
+
 import * as uuidv4 from "uuid/v4";
-@Entity()
+
+@Entity("users")
 export class User extends BaseEntity {
   //Doens't do a sequencial increment of ids,
   // so the user doens't get to the have the info of how much user he have, etc, etc
@@ -18,9 +20,6 @@ export class User extends BaseEntity {
 
   @Column("text")
   password: string;
-
-  @Column()
-  age: number;
 
   @BeforeInsert()
   addId() {

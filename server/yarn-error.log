@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js -D add graphql
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add _d jest ts-jest @types/jest
 
 PATH: 
   C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\Program Files (x86)\Razer\ChromaBroadcast\bin;C:\Program Files\Razer\ChromaBroadcast\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Users\joaom\AppData\Local\Microsoft\WindowsApps;C:\Users\joaom\.dotnet\tools;C:\Users\joaom\AppData\Local\Programs\Python\Python38-32\Scripts\;C:\Users\joaom\AppData\Local\Programs\Python\Python38-32\;C:\Users\joaom\AppData\Local\Programs\Python\Python38-32\Scripts\;C:\Users\joaom\AppData\Local\Programs\Python\Python38-32\;C:\Progra;C:\Users\joaom\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\joaom\AppData\Roaming\npm;C:\Program Files (x86)\Yarn\bin\;C:\Users\joaom\AppData\Local\Programs\Python\Python38-32\Scripts\;C:\Users\joaom\AppData\Local\Programs\Python\Python38-32\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Users\joaom\AppData\Local\Programs\Python\Python38-32\Scripts\;C:\Users\joaom\AppData\Local\Programs\Python\Python38-32\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Progra;C:\Users\joaom\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\joaom\AppData\Roaming\npm;C:\Users\joaom\AppData\Local\Yarn\bin
@@ -14,12 +14,17 @@ Platform:
   win32 x64
 
 Trace: 
-  SyntaxError: C:\Users\joaom\Documents\LearningProjects\NodeBoilerPlate-Ts-GraphQL\server\package.json: Unexpected string in JSON at position 641
-      at JSON.parse (<anonymous>)
-      at C:\Program Files (x86)\Yarn\lib\cli.js:1625:59
-      at Generator.next (<anonymous>)
-      at step (C:\Program Files (x86)\Yarn\lib\cli.js:310:30)
-      at C:\Program Files (x86)\Yarn\lib\cli.js:321:13
+  Error: https://registry.yarnpkg.com/_d: Not found
+      at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:66056:18)
+      at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:140665:22)
+      at Request.emit (events.js:210:5)
+      at Request.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141637:10)
+      at Request.emit (events.js:210:5)
+      at IncomingMessage.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141559:12)
+      at Object.onceWrapper (events.js:299:28)
+      at IncomingMessage.emit (events.js:215:7)
+      at endReadableNT (_stream_readable.js:1184:12)
+      at processTicksAndRejections (internal/process/task_queues.js:80:21)
 
 npm manifest: 
   {
@@ -32,6 +37,7 @@ npm manifest:
       "@types/uuid": "^3.4.7",
       "aws-lambda": "0.1.2",
       "gql2ts": "^1.10.1",
+      "graphql": "^14.6.0",
       "graphql-yoga": "^1.18.3",
       "nodemon": "^2.0.2",
       "ts-node": "8.6.2",
@@ -46,7 +52,7 @@ npm manifest:
       "reflect-metadata": "^0.1.13",
       "typeorm": "^0.2.22",
       "uuid": "^3.4.0"
-    }
+    },
     "scripts": {
       "start": "SET NODE_ENV=development & nodemon --exec ts-node --files src/index.ts",
       "gen-schema-types": "gql2ts src/schema.graphql -o src/types/schema.d.ts"
@@ -1881,19 +1887,12 @@ Lockfile:
       graphql-upload "^8.0.0"
       subscriptions-transport-ws "^0.9.8"
   
-  graphql@*, "graphql@14.0.2 - 14.2.0 || ^14.3.1", "graphql@>= 0.10 <15", "graphql@^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0":
+  graphql@*, "graphql@14.0.2 - 14.2.0 || ^14.3.1", "graphql@>= 0.10 <15", "graphql@^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0", graphql@^14.6.0:
     version "14.6.0"
     resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.6.0.tgz#57822297111e874ea12f5cd4419616930cd83e49"
     integrity sha512-VKzfvHEKybTKjQVpTFrA5yUq2S9ihcZvfJAtsDBBCuV6wauPu1xl/f9ehgVf0FcEJJs4vz6ysb/ZMkGigQZseg==
     dependencies:
       iterall "^1.2.2"
-  
-  graphql@0.13.0:
-    version "0.13.0"
-    resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.13.0.tgz#d1b44a282279a9ce0a6ec1037329332f4c1079b6"
-    integrity sha512-WlO+ZJT9aY3YrBT+H5Kk+eVb3OVVehB9iRD/xqeHdmrrn4AFl5FIcOpfHz/vnBr6Y6JthGMlnFqU8XRnDjSR7A==
-    dependencies:
-      iterall "1.1.x"
   
   has-ansi@^2.0.0:
     version "2.0.0"
@@ -2194,11 +2193,6 @@ Lockfile:
     dependencies:
       node-fetch "^1.0.1"
       whatwg-fetch ">=0.10.0"
-  
-  iterall@1.1.x:
-    version "1.1.4"
-    resolved "https://registry.yarnpkg.com/iterall/-/iterall-1.1.4.tgz#0db40d38fdcf53ae14dc8ec674e62ab190d52cfc"
-    integrity sha512-eaDsM/PY8D/X5mYQhecVc5/9xvSHED7yPON+ffQroBeTuqUVm7dfphMkK8NksXuImqZlVRoKtrNfMIVCYIqaUQ==
   
   iterall@^1.1.3, iterall@^1.2.1, iterall@^1.2.2:
     version "1.3.0"

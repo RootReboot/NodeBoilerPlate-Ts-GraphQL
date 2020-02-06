@@ -22,6 +22,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "graphql-import": "^1.0.0-beta.2",
+    "graphql-tools": "^4.0.6",
     "pg": "^7.17.1",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.22",

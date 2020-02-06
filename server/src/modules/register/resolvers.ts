@@ -1,11 +1,11 @@
-import { ResolverMap } from "./types/graphql-utils";
+import { ResolverMap } from "../../types/graphql-utils";
 import * as bcrypt from "bcryptjs";
-import { User } from "./entity/User";
+import { User } from "../../entity/User";
 
 export const resolvers: ResolverMap = {
+  //Query needed because of an error from graphql-tools that was a problem with merging a schema if it doesn't start with a query.
   Query: {
-    hello: (_: any, { name }: GQL.IHelloOnQueryArguments) =>
-      `Hello ${name || "World"}`
+    bye: () => "bye"
   },
   Mutation: {
     register: async (

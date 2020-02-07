@@ -21,7 +21,6 @@ export const startServer = async () => {
   }
 
   const schema = mergeSchemas({ schemas });
-  console.log(schema);
   const server = new GraphQLServer({ schema });
   await createTypeOrmConn();
   const app = await server.start({

@@ -1,6 +1,26 @@
 import { ResolverMap } from "../../types/graphql-utils";
 import * as bcrypt from "bcryptjs";
+import * as yup from "yup";
 import { User } from "../../entity/User";
+import { formatYupError } from "../../utils/formatYupError";
+import {
+  duplicateEmail,
+  invalidEmail,
+  emailNotLongEnough,
+  passwordNotLongEnough
+} from "./errorMessages";
+
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .min(3, emailNotLongEnough)
+    .max(255)
+    .email(invalidEmail),
+  password: yup
+    .string()
+    .min(3, passwordNotLongEnough)
+    .max(255)
+});
 
 export const resolvers: ResolverMap = {
   //Query needed because of an error from graphql-tools that was a problem with merging a schema if it doesn't start with a query.
@@ -8,10 +28,15 @@ export const resolvers: ResolverMap = {
     bye: () => "bye"
   },
   Mutation: {
-    register: async (
-      _,
-      { email, password }: GQL.IRegisterOnMutationArguments
-    ) => {
+    register: async (_, args: GQL.IRegisterOnMutationArguments) => {
+      try {
+        await schema.validate(args, { abortEarly: false });
+      } catch (err) {
+        return formatYupError(err);
+      }
+
+      const { email, password } = args;
+
       User.findOne();
       const userAlreadyExists = await User.findOne({
         where: { email },
@@ -21,7 +46,7 @@ export const resolvers: ResolverMap = {
         return [
           {
             path: "email",
-            message: "already taken"
+            message: duplicateEmail
           }
         ];
       }

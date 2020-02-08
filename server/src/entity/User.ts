@@ -1,18 +1,10 @@
-import {
-  Entity,
-  PrimaryColumn,
-  Column,
-  BeforeInsert,
-  BaseEntity
-} from "typeorm";
-
-import * as uuidv4 from "uuid/v4";
+import { Entity, Column, BaseEntity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("users")
 export class User extends BaseEntity {
   //Doens't do a sequencial increment of ids,
   // so the user doens't get to the have the info of how much user he have, etc, etc
-  @PrimaryColumn("uuid")
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column("varchar", { length: 255 })
@@ -21,8 +13,6 @@ export class User extends BaseEntity {
   @Column("text")
   password: string;
 
-  @BeforeInsert()
-  addId() {
-    this.id = uuidv4();
-  }
+  @Column("boolean", { default: false })
+  confirmed: boolean;
 }

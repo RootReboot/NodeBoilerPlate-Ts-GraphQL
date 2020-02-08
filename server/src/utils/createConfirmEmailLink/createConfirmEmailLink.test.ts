@@ -1,9 +1,9 @@
 import * as Redis from "ioredis";
 import fetch from "node-fetch";
 
-import { createConfirmEmailLink } from "../utils/createConfirmEmailLink";
-import { createTypeOrmConn } from "../utils/createTypeOrmConn";
-import { User } from "../entity/User";
+import { createConfirmEmailLink } from "./createConfirmEmailLink";
+import { createTypeOrmConn } from "../createTypeOrmConn";
+import { User } from "../../entity/User";
 
 let userId = "";
 const redis = new Redis();
@@ -34,11 +34,5 @@ describe("Test utils/createConfirmEmailLink", () => {
     const key = chunks[chunks.length - 1];
     const value = await redis.get(key);
     expect(value).toBeNull();
-  });
-
-  test("sends invalid back if bad id sent", async () => {
-    const response = await fetch(`${process.env.TEST_HOST}/confirm/12083`);
-    const text = await response.text();
-    expect(text).toEqual("invalid");
   });
 });

@@ -6,12 +6,11 @@ import { mergeSchemas, makeExecutableSchema } from "graphql-tools";
 import { GraphQLSchema } from "graphql";
 
 import * as Redis from "ioredis";
-
+import { redis } from "./redis";
 import { createTypeOrmConn } from "./utils/createTypeormConn";
 import { User } from "./entity/User";
 
 export const startServer = async () => {
-  const redis = new Redis();
   const server = await createGraphQLServer(redis);
 
   server.express.get("/confirm/:id", async (req, res) => {

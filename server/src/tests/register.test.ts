@@ -1,13 +1,13 @@
 import { request } from "graphql-request";
-import { User } from "../../entity/User";
+import { User } from "../entity/User";
 
 import {
   duplicateEmail,
   emailNotLongEnough,
   passwordNotLongEnough,
   invalidEmail
-} from "./errorMessages";
-import { createTypeOrmConn } from "../../utils/createTypeormConn";
+} from "../modules/register/errorMessages";
+import { createTypeOrmConn } from "../utils/createTypeormConn";
 
 const email = "test@example.com";
 const password = "123456";
@@ -23,7 +23,7 @@ const mutation = (email: string, password: string) => `mutation {
     }
 }`;
 
-describe("Register user", () => {
+describe("Test Modules/register user", () => {
   it("Checks if a valid user is registered", async () => {
     const response = await request(
       process.env.TEST_HOST as string,

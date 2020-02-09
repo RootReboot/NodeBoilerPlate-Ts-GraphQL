@@ -1,10 +1,13 @@
 import { GraphQLServer } from "graphql-yoga";
-
+import "reflect-metadata";
+import * as dotenv from "dotenv";
 import * as Redis from "ioredis";
 import { redis } from "./redis";
 import { createTypeOrmConn } from "./utils/createTypeormConn";
 import { confirmEmail } from "./controllers/confirmEmail/confirmEmail";
 import { genSchema } from "./utils/genSchema";
+
+dotenv.config({ path: "./src/.env" });
 
 export const startServer = async () => {
   const server = await createGraphQLServer(redis);

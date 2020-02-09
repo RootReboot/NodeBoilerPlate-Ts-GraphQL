@@ -42,8 +42,8 @@
     "yup": "^0.28.1"
   },
   "scripts": {
-    "start": "SET NODE_ENV=development&nodemon --exec ts-node --files -r dotenv/config src/index.ts dotenv_config_path=src/.env",
-    "test": "SET NODE_ENV=test&jest --runInBand --forceExit",
+    "start": "SET NODE_ENV=development&nodemon --exec ts-node --files src/index.ts",
+    "test": "SET NODE_ENV=test&jest --watch --runInBand",
     "gen-schema-types": "ts-node --files src/scripts/createTypes.ts",
     "drop-database-dev": "ts-node ./node_modules/typeorm/cli.js  schema:drop -c development"
   },

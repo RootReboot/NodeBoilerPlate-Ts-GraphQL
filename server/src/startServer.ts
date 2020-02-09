@@ -1,29 +1,15 @@
-import { importSchema } from "graphql-import";
 import { GraphQLServer } from "graphql-yoga";
-import * as path from "path";
-import * as fs from "fs";
-import { mergeSchemas, makeExecutableSchema } from "graphql-tools";
-import { GraphQLSchema } from "graphql";
 
 import * as Redis from "ioredis";
 import { redis } from "./redis";
 import { createTypeOrmConn } from "./utils/createTypeormConn";
-import { User } from "./entity/User";
+import { confirmEmail } from "./controllers/confirmEmail/confirmEmail";
+import { genSchema } from "./utils/genSchema";
 
 export const startServer = async () => {
   const server = await createGraphQLServer(redis);
 
-  server.express.get("/confirm/:id", async (req, res) => {
-    const { id } = req.params;
-    const userId = await redis.get(id);
-    if (userId) {
-      await User.update({ id: userId }, { confirmed: true });
-      await redis.del(id);
-      res.send("ok");
-    } else {
-      res.send("invalid");
-    }
-  });
+  server.express.get("/confirm/:id", confirmEmail);
 
   await createTypeOrmConn();
   const app = await server.start({
@@ -34,24 +20,9 @@ export const startServer = async () => {
   return app;
 };
 
-const getSchemas = async () => {
-  const schemas: GraphQLSchema[] = [];
-  const folders = fs.readdirSync(path.join(__dirname, "./modules"));
-
-  //Async calls inside a forEach don't await because the Promise is thrown
-  for (const folder of folders) {
-    const { resolvers } = require(`./modules/${folder}/resolvers`);
-    const typeDefs = await importSchema(
-      path.join(__dirname, `./modules/${folder}/schema.graphql`)
-    );
-    schemas.push(makeExecutableSchema({ resolvers, typeDefs }));
-  }
-  return schemas;
-};
-
 const createGraphQLServer = async (redis: Redis.Redis) => {
   return new GraphQLServer({
-    schema: mergeSchemas({ schemas: await getSchemas() }),
+    schema: await genSchema(),
     context: ({ request }) => ({
       redis,
       url: request.protocol + "://" + request.get("host")

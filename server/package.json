@@ -44,7 +44,8 @@
   "scripts": {
     "start": "SET NODE_ENV=development&nodemon --exec ts-node --files -r dotenv/config src/index.ts dotenv_config_path=src/.env",
     "test": "SET NODE_ENV=test&jest --runInBand --forceExit",
-    "gen-schema-types": "ts-node --files src/scripts/createTypes.ts"
+    "gen-schema-types": "ts-node --files src/scripts/createTypes.ts",
+    "drop-database-dev": "ts-node ./node_modules/typeorm/cli.js  schema:drop -c development"
   },
   "jest": {
     "globalSetup": "./src/testSetup/setup.ts",

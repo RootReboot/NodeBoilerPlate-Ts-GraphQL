@@ -8,12 +8,20 @@ import {
   invalidEmail
 } from "./errorMessages";
 import { createTypeOrmConn } from "../../utils/createTypeormConn";
+import { Connection } from "typeorm";
 
 const email = "test@example.com";
 const password = "123456";
 
 beforeAll(async () => {
   await createTypeOrmConn();
+});
+let conn: Connection;
+beforeAll(async () => {
+  conn = await createTypeOrmConn();
+});
+afterAll(async () => {
+  conn.close();
 });
 
 const mutation = (email: string, password: string) => `mutation {

@@ -35,7 +35,7 @@ export const startServer = async () => {
 
   const cors = {
     credentials: true,
-    origin: process.env.FRONTEND_HOST
+    origin: process.env.NODE_ENV === "test" ? "*" : process.env.FRONTEND_HOST
   };
 
   server.express.get("/confirm/:id", confirmEmail);
@@ -46,7 +46,6 @@ export const startServer = async () => {
     port: process.env.NODE_ENV === "test" ? 0 : 4000
   });
   console.log("Server is running on localhost:4000");
-
   return app;
 };
 
